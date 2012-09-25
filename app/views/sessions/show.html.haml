@@ -1,0 +1,10 @@
+%legend Latest logins
+%table{ :class => ['table', 'table-hover', 'table-striped']} 
+  %thead
+    %tr
+      %th Time
+  %tbody
+    - @sessions.each do |s|
+      %tr
+        %td= s.time
+= will_paginate @sessions

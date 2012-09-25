@@ -1,0 +1,15 @@
+.row-fluid 
+  - if signed_in?
+    .span8    
+      .hero-unit
+        %h1.h1 Welcome to iZettle!
+  - else
+    %div{ :class => ['span4', 'offset4']}
+      .well
+        %legend Choose your poison:
+        .home-btn
+          %a#btn-register{ :class => ['btn','btn-primary'], :href => signup_path } Register
+        .home-btn
+          %a#btn-login{ :class => ['btn','btn-primary'] } Login
+        .login-form{ :class => "hidden" }
+          = render :template => "sessions/new"

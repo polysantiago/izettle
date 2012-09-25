@@ -1,0 +1,21 @@
+%legend Users
+%table{ :class => ['table', 'table-striped'] }
+  %thead
+    %tr
+      %th Email
+      %th Admin
+      %th Registered on
+      %th Last Seen
+      %th
+      %th
+  %tbody
+    - @users.each do |u|
+      %tr
+        %td= u.email
+        %td= u.admin
+        %td= u.registered_on
+        %td= u.last_login
+        %td
+          %a{ :class => ['btn', 'btn-primary'], :href => edit_user_path(u)} Edit
+        %td
+          %a{ :class => ['btn'], :href => user_sessions_path(u)} Sessions  

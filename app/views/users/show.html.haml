@@ -1,0 +1,31 @@
+.row-fluid
+  - if current_user.admin?
+    .span4
+      %div{ :class => ['well', 'sidebar-nav'] }
+        %ul{ :class => ['nav', 'nav-list'] }
+          %li{ :class => 'nav-header' } Users
+          - users.each do |u|
+            %li{ :class => @user == u ? 'active' : '' }
+              = link_to u.email, user_path(u)
+  .span8    
+    %legend Profile
+    %p
+      %strong Email
+      %span= @user.email
+    
+    - if current_user.admin?
+      %p
+        %strong Admin
+        %span= @user.admin
+    
+    %p
+      %strong Registered on
+      %span= @user.registered_on
+      
+    %p
+      %strong Last seen
+      %span= @user.last_login
+    
+    - if current_user.admin?
+      %a{ :class => ['btn'], :href => user_sessions_path(@user) } Sessions
+    %a{ :class => ['btn', 'btn-primary'], :href => edit_user_path } Edit

@@ -1,0 +1,12 @@
+// Place all the styles related to the static_pages controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+div.hidden { display: none; visibility: hidden; }
+
+div.home-btn { 
+  margin-top: 15px;
+ .btn { border-radius: 6px; display: block; font-size: 24px; line-height: 1; padding: 19px 24px; text-align: center; }
+}
+
+div.registration-form, div.login-form { margin-top: 15px; }

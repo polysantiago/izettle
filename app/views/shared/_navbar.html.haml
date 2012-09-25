@@ -1,0 +1,21 @@
+%div{:class => ['navbar', 'navbar-fixed-top']}
+  .navbar-inner
+    .container-fluid
+      %a{:class => ['btn', 'btn-navbar'], 'data-toggle' => 'collapse', 'data-target' => '.nav.collape'}
+        %span{:class => 'icon-bar'}
+        %span{:class => 'icon-bar'}
+        %span{:class => 'icon-bar'}
+      %a{:class => 'brand', :href => 'http://izettle.com'} iZettle
+      - if signed_in?
+        %div{ :class => ['nav-collapse', 'collapse'] }
+          %ul.nav
+            %li{ :class => request.fullpath == root_path ? 'active' : '' }
+              = link_to "Home", root_path
+            %li{ :class => request.fullpath == user_path(current_user) ? 'active' : '' }
+              = link_to "Profile", user_path(current_user)
+            - if current_user.admin?
+              %li{ :class => request.fullpath == users_path ? 'active' : '' }
+                = link_to "Users", users_path
+          %p{:class => ['navbar-text', 'pull-right']}
+            = link_to current_user.email, user_path(current_user)
+          = link_to "Sign out", signout_path, { :method => "delete", :class => ['btn', 'btn-default', 'pull-right'] }

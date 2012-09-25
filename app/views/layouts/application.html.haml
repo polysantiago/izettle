@@ -1,0 +1,20 @@
+!!! 5
+%html
+  %head
+    %title iZettle
+    = stylesheet_link_tag    "application", :media => "all"
+    = javascript_include_tag "application"
+    = csrf_meta_tags
+  %body    
+    = render 'shared/navbar'       
+    .container-fluid
+      - if flash[:notice]
+        %div{ :class => ['alert', 'alert-info']}
+          = flash[:notice]
+      - if flash[:error]
+        %div{ :class => ['alert', 'alert-error']}
+          = flash[:error]
+      - if flash[:success]
+        %div{ :class => ['alert', 'alert-success']}
+          = flash[:success] 
+      = yield
