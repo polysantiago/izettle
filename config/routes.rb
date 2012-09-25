@@ -1,5 +1,7 @@
 IZettle::Application.routes.draw do
   
+  match '/check_availability' => "users#check_availability"
+  
   resources :sessions, :only => [:new, :create, :destroy]
   
   resources :users do
