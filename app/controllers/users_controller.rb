@@ -37,8 +37,14 @@ class UsersController < ApplicationController
   end
 
   def update
-    @user.encrypt_password
-    if @user.update_attributes(params[:user])
+    if params[:user][:password].empty?
+      success = @user.update_attribute(:admin, params[:user][:admin])
+    else
+      @user.encrypt_password
+      success = @user.update_attributes(params[:user])  
+    end
+    
+    if success
       flash[:success] = "Profile updated!"
       redirect_to @user
     else

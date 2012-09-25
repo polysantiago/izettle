@@ -1,19 +1,28 @@
 .row-fluid
   %div{ :class => ["span8"] }
-    = form_for @user do |f|
+    = form_for @user, :html => { :class => 'form-horizontal'} do |f|
       = render 'shared/error_messages', object: f.object
 
-      = f.label :email
-      = f.text_field :email
+      .control-group
+        = f.label :email, :class => 'control-label'
+        .controls
+          = f.text_field :email, :disabled => true
       
       - if current_user.admin?
-        = f.label :admin
-        = f.check_box :admin      
+        .control-group
+          = f.label :admin, :class => 'control-label'
+          .controls
+            %label.checkbox
+              = f.check_box :admin      
 
-      = f.label :password
-      = f.password_field :password
+      .control-group
+        = f.label :password, :class => 'control-label'
+        .controls
+          = f.password_field :password
 
-      = f.label :password_confirmation, "Confirm Password"
-      = f.password_field :password_confirmation
-
-      = f.submit "Save", :class => "btn btn-large btn-primary"
+      .control-group
+        = f.label :password_confirmation, "Confirm Password", :class => 'control-label'
+        .controls
+          = f.password_field :password_confirmation
+      = f.submit "Save", :class => "btn btn-large btn-primary offset3"
+      
