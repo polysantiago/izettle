@@ -27,5 +27,7 @@
       %span= @user.last_login
     
     - if current_user.admin?
-      %a{ :class => ['btn'], :href => user_sessions_path(@user) } Sessions
+      %a{ :class => ['btn', 'btn-info'], :href => user_sessions_path(@user) } Sessions
+      - unless current_user == @user
+        = button_to "Delete", user_path, :method => :destroy, :confirm => 'You sure?', :class => ['btn', 'btn-danger'] 
     %a{ :class => ['btn', 'btn-primary'], :href => edit_user_path } Edit
