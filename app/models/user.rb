@@ -1,3 +1,18 @@
+# == Schema Information
+#
+# Table name: users
+#
+#  id                 :integer          not null, primary key
+#  email              :string(255)
+#  encrypted_password :string(255)
+#  salt               :string(255)
+#  created_at         :datetime         not null
+#  updated_at         :datetime         not null
+#  admin              :boolean          default(FALSE)
+#  registered_on      :datetime
+#  last_login         :datetime
+#
+
 require 'digest'
 class User < ActiveRecord::Base
   attr_accessor :password
