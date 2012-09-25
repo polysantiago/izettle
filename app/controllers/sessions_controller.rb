@@ -16,8 +16,8 @@ class SessionsController < ApplicationController
     else
       sign_in user
       redirect_back_or user
-      user.sessions.build(:time => Time.now) # Log the session
-      user.update_attributes(:last_login => Time.now, :password => params[:session][:password]) # Need to send password to keep functionality
+      user.sessions.create(:time => Time.now) # Log the session
+      user.update_attribute(:last_login, Time.now)
     end
   end
   

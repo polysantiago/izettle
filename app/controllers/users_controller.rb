@@ -22,7 +22,7 @@ class UsersController < ApplicationController
     @user.registered_on = Time.now
     @user.last_login = Time.now
     @user.sessions.build(:time => Time.now)
-           
+    @user.encrypt_password       
     if @user.save
       sign_in @user
       flash[:success] = "Welcome to iZettle!"
@@ -37,6 +37,7 @@ class UsersController < ApplicationController
   end
 
   def update
+    @user.encrypt_password
     if @user.update_attributes(params[:user])
       flash[:success] = "Profile updated!"
       redirect_to @user

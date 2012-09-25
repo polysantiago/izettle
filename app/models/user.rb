@@ -13,7 +13,6 @@ class User < ActiveRecord::Base
   # Automatically create the virtual attribute 'password_confirmation'
   validates :password, :presence => true, :confirmation => true, :length => { :within => 6..8 }
 
-  before_save :encrypt_password
   before_save { |user| user.email = email.downcase }
 
   # Return true if the user's password matched the submitted password
@@ -33,13 +32,13 @@ class User < ActiveRecord::Base
       (user && user.salt == cookie_salt) ? user : nil
     end
   end
-
-  private
-
-    def encrypt_password
+  
+  def encrypt_password
       self.salt = make_salt unless has_password?(password)
       self.encrypted_password = encrypt(password)      
-    end
+  end  
+
+  private
 
     def encrypt(string)
       secure_hash("#{self.salt}--#{string}")
