@@ -5,6 +5,13 @@ FactoryGirl.define do
     password_confirmation "foobar"
   end
   
+  factory :admin do
+    email                 "pablo@example.com"
+    password              "foobar"
+    password_confirmation "foobar"
+    admin                 true
+  end
+  
   factory :session do
     time Time.now
     association :user

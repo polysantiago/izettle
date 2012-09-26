@@ -20,6 +20,6 @@
           %a{ :class => ['btn', 'btn-primary'], :href => edit_user_path(u)} Edit        
         %td
           - unless current_user == u
-            = button_to "Delete", user_path(u), :method => :destroy, :confirm => 'You sure?', :class => ['btn', 'btn-danger']          
+            = button_to "Delete", user_path(u), :method => :delete, :confirm => 'You sure?', :class => ['btn', 'btn-danger']          
         %td
           %a{ :class => ['btn', 'btn-info'], :href => user_sessions_path(u)} Sessions        

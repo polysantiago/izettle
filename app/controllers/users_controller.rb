@@ -36,7 +36,7 @@ class UsersController < ApplicationController
     @user = User.find params[:id]
   end
 
-  def update
+  def update    
     if params[:user][:password].empty?
       success = @user.update_attribute(:admin, params[:user][:admin])
     else
@@ -58,6 +58,7 @@ class UsersController < ApplicationController
       flash[:error] = "You cannot delete your own user"
     else
       flash[:success] = "User destroyed"
+      @user.sessions.clear
       @user.destroy
     end
     redirect_to users_path

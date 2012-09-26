@@ -1,15 +1,15 @@
 class SessionsController < ApplicationController
   
-  def new    
-  end
-  
-  def show
+  def index
     @sessions = Session.where(:user_id => params[:user_id]).paginate(:page => params[:page]).order('time DESC')
   end
   
+  def new    
+  end    
+  
   def create
     user = User.authenticate(params[:session][:email], params[:session][:password])
-
+    
     if user.nil?
       flash.now[:error] = "Invalid email/password combination"
       render :new

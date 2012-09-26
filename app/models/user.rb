@@ -19,7 +19,7 @@ class User < ActiveRecord::Base
   attr_accessible :email, :password, :password_confirmation, :admin, :registered_on, :last_login
   validates_uniqueness_of :email, :message => "Email is already being used"
   
-  has_many :sessions  
+  has_many :sessions, :dependent => :delete_all  
 
   email_regex = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
 
@@ -32,6 +32,8 @@ class User < ActiveRecord::Base
 
   # Return true if the user's password matched the submitted password
   def has_password?(submitted_password)
+    logger.debug encrypted_password
+    logger.debug encrypt(submitted_password)
     encrypted_password == encrypt(submitted_password)
   end
 

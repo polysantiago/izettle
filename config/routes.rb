@@ -5,7 +5,7 @@ IZettle::Application.routes.draw do
   resources :sessions, :only => [:new, :create, :destroy]
   
   resources :users do
-      resource :sessions, :only => [:show]
+      resource :sessions, :only => [:index]
   end
   
   

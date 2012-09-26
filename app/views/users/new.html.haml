@@ -3,8 +3,7 @@
   = render 'shared/error_messages', :object => f.object
   .control-group
     .controls
-      %div{ :class => ['field', 'input-prepend'] }
-        %span{ :class => 'add-on'} @
+      %div{ :class => ['field'] }        
         = f.text_field :email, :placeholder => "Email"
   .control-group
     .controls
