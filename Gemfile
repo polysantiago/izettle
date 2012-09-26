@@ -12,15 +12,12 @@ group :development, :test do
   gem 'rspec-rails', '>= 2.5.0'
   gem 'guard-rspec', '1.2.1'
   gem 'guard-spork', '1.2.0'  
-  gem 'spork', '0.9.2'  
+  gem 'spork', '0.9.2'
+  gem 'factory_girl_rails', "~> 4.0"  
 end
 
 group :development do
   gem 'annotate', '>= 2.5.0'
-end
-
-group :test do
-  gem 'factory_girl_rails', '>= 1.0'
 end
 
 # Gems used only for assets and not required

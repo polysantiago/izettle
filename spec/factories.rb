@@ -1,14 +1,17 @@
-Factory.define :user do |user|
-  user.email                 "pablo@example.com"
-  user.password              "foobar"
-  user.password_confirmation "foobar"
-end
-
-Factory.sequence :email do |n|
-  "person-#{n}@example.com"
-end
-
-Factory.define :session do |session|
-  session.time Time.now
-  session.association :user
+FactoryGirl.define do 
+  factory :user do
+    email                 "pablo@example.com"
+    password              "foobar"
+    password_confirmation "foobar"
+  end
+  
+  factory :session do
+    time Time.now
+    association :user
+  end
+  
+  sequence :email do |n|
+    "person-#{n}@example.com"  
+  end
+  
 end
