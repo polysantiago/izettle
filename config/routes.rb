@@ -1,13 +1,12 @@
 IZettle::Application.routes.draw do
   
-  match '/check_availability' => "users#check_availability"
-  
-  resources :sessions, :only => [:new, :create, :destroy]
+  match '/check_availability' => "users#check_availability"   
   
   resources :users do
-      resource :sessions, :only => [:index]
+      resource :sessions, :only => [:show]
   end
   
+  resources :sessions, :only => [:new, :create, :destroy]
   
   match '/signup', :to => 'users#new'
   match '/signin', :to => 'sessions#new'

@@ -182,12 +182,20 @@ describe User do
   describe "sessions associations" do
     
     before(:each) do
+      @session = Session.new(:time => Time.now)
       @user = User.create(@attr)
-      @session = Session.create(:time => Time.now)
+      @user.sessions << @session
+      @user.save!
     end
     
     it "should have a sessions attribute" do
       @user.should respond_to(:sessions)
+    end
+    
+    it "should be able to find the associated sessions" do      
+      lambda do
+          Session.find(@session)
+      end.should_not raise_error(ActiveRecord::RecordNotFound)
     end
     
     it "should destroy associated sessions" do

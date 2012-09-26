@@ -36,12 +36,5 @@ describe Session do
       @session.user_id.should == @user.id
       @session.user.should == @user
     end
-  end
-  
-  describe "validations" do
-
-    it "should have a user id" do
-      Session.new(@attr).should_not be_valid
-    end
   end  
 end

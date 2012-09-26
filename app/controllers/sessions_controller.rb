@@ -1,6 +1,7 @@
 class SessionsController < ApplicationController
+  before_filter :admin_user, :only => [:show]
   
-  def index
+  def show
     @sessions = Session.where(:user_id => params[:user_id]).paginate(:page => params[:page]).order('time DESC')
   end
   
@@ -25,4 +26,11 @@ class SessionsController < ApplicationController
     sign_out
     redirect_to root_path
   end
+  
+  private 
+  
+    def admin_user
+      flash[:error] = "You're not authorized to see other user's sessions"
+      redirect_to(root_path) unless current_user.admin?
+    end   
 end
