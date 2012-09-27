@@ -21,8 +21,7 @@ class UsersController < ApplicationController
     
     @user.registered_on = Time.now
     @user.last_login = Time.now
-    @user.sessions.build(:time => Time.now)
-    @user.encrypt_password       
+    @user.sessions.build(:time => Time.now)    
     if @user.save
       sign_in @user
       flash[:success] = "Welcome to iZettle!"
@@ -36,17 +35,17 @@ class UsersController < ApplicationController
     @user = User.find params[:id]
   end
 
-  def update    
-    if !params[:user][:email].empty? && params[:user][:password].empty?
+  def update
+    if params[:user][:password].empty?
       success = @user.update_attribute(:admin, params[:user][:admin])
-    else
+    else 
+      @user.password = params[:user][:password]
       @user.encrypt_password
       success = @user.update_attributes(params[:user])  
     end
     
     if success
-      flash[:success] = "Profile updated!"
-      redirect_to @user
+      redirect_to @user, :flash => { :success => "Profile updated!" }
     else
       render :edit
     end

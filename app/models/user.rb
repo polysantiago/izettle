@@ -29,11 +29,12 @@ class User < ActiveRecord::Base
   validates :password, :presence => true, :confirmation => true, :length => { :within => 6..8 }
 
   before_save { |user| user.email = email.downcase }
+  
+  #before_update :encrypt_password
+  before_create :encrypt_password
 
   # Return true if the user's password matched the submitted password
   def has_password?(submitted_password)
-    logger.debug encrypted_password
-    logger.debug encrypt(submitted_password)
     encrypted_password == encrypt(submitted_password)
   end
 

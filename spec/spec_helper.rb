@@ -17,6 +17,10 @@ Spork.prefork do
     def test_sign_in(user)
       controller.sign_in(user)
     end
+    
+    def test_sign_out
+      controller.sign_out
+    end
   end
   
   # Webrat configuration

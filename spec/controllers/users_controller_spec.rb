@@ -142,14 +142,16 @@ describe UsersController do
   describe "PUT 'update'" do
       
     before(:each) do
-      @user = FactoryGirl.create(:user)
+      @user = FactoryGirl.build(:user)
+      @user.encrypt_password
+      @user.save!
       test_sign_in(@user)
     end
 
     describe "failure" do
       
       before(:each) do
-        @attr = { :email => "", :password => "", :password_confirmation => "" }
+        @attr = { :email => "user@example.org", :password => "aaaaaaa", :password_confirmation => "bbbbbb" }
       end
       
       it "should render the 'edit' page" do
@@ -162,14 +164,25 @@ describe UsersController do
     describe "success" do
       
       before(:each) do
-        @attr = { :email => "user@example.org", :password => "barbaz", :password_confirmation => "barbaz" }
+        @attr = { :password => "barbaz", :password_confirmation => "barbaz" }
       end
       
       it "should change the user's attributes" do
         put :update, :id => @user, :user => @attr
         @user.reload
-        @user.email.should eq(@attr[:email])
         @user.encrypted_password.should == assigns(:user).encrypted_password
+      end
+      
+      it "should let an user log back in after changing its password" do
+        original_password = @user.password
+        put :update, :id => @user, :user => @attr        
+        @user.reload
+        User.authenticate(@user.email, original_password).should be_nil
+        User.authenticate(@user.email, @attr[:password]).should_not be_nil
+        controller.should be_signed_in
+        test_sign_out
+        test_sign_in(@user)
+        controller.should be_signed_in
       end
       
       it "should change toogle user to be an admin if password is empty" do
