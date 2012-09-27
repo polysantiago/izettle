@@ -1,7 +1,7 @@
 class UsersController < ApplicationController
   before_filter :authenticate,    :only => [:index, :edit, :update, :destroy]
   before_filter :illegal_access,  :only => [:new, :create]
-  before_filter :correct_user,    :only => [:edit, :update]
+  before_filter :correct_user,    :only => [:edit, :update, :show]
   before_filter :admin_user,      :only => [:index, :destroy]    
 
   def new
@@ -82,6 +82,7 @@ class UsersController < ApplicationController
   
     def correct_user
       @user = User.find params[:id]
+      flash[:error] = "Nope!"
       redirect_to(root_path) unless current_user?(@user) || current_user.admin?
     end
   
