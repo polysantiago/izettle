@@ -18,7 +18,11 @@ Spork.prefork do
       controller.sign_in(user)
     end
   end
+  
+  # Webrat configuration
+  Webrat.configure do |config|
+    config.mode = :rails
+  end
 end
-
 Spork.each_run do
 end

@@ -37,7 +37,7 @@ class UsersController < ApplicationController
   end
 
   def update    
-    if params[:user][:password].empty?
+    if !params[:user][:email].empty? && params[:user][:password].empty?
       success = @user.update_attribute(:admin, params[:user][:admin])
     else
       @user.encrypt_password
