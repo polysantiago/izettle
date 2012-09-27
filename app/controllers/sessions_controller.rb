@@ -30,7 +30,9 @@ class SessionsController < ApplicationController
   private 
   
     def admin_user
-      flash[:error] = "You're not authorized to see other user's sessions"
-      redirect_to(root_path) unless current_user.admin?
+      unless current_user.admin?
+        flash[:error] = "You're not authorized to see other user's sessions"
+        redirect_to(root_path)
+      end
     end   
 end
